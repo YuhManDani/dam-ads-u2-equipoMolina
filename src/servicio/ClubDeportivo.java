@@ -9,12 +9,12 @@ import modelo.*;
 
 public class ClubDeportivo {
     Connection con;
-    private final String url = "jdbc:mysql://localhost:3306/club_dama";
-    private final String user = "root";
-    private final String password = "1234";
-
-    public ClubDeportivo() throws SQLException {
-         con = DriverManager.getConnection(url, user, password);
+    {
+        try {
+            con = data.dbutils.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public ArrayList<Socio> getSocios() {

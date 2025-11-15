@@ -6,9 +6,21 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.function.Consumer;
 
 public class SocioFormView extends GridPane {
+    Connection con;
+    {
+        try {
+            con = data.dbutils.getInstance().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public SocioFormView(ClubDeportivo club) {
         setPadding(new Insets(12));
         setHgap(8);
@@ -33,11 +45,30 @@ public class SocioFormView extends GridPane {
         crear.setOnAction(e -> {
             try {
                 boolean ok=true;
-                //   ok= club.altaSocio(new Socio(id.getText(), dni.getText(), nombre.getText(), apellidos.getText(), tel.getText(), email.getText()));
-               if (ok) showInfo("Socio insertado correctametne");
+                String idSocio = id.getText();
+                String dniSocio = dni.getText();
+                String nombreSocio = nombre.getText();
+                String apellidosSocio = apellidos.getText();
+                String tlfno = tel.getText();
+                String correo = email.getText();
+
+                String stmt = "INSERT INTO socios (id_socio, dni, nombre, apellidos, telefono, email) VALUES (?, ?, ?, ?, ?, ?)";
+                PreparedStatement ps = null;
+
+                ps = con.prepareStatement(stmt);
+                ps.setString(1, idSocio);
+                ps.setString(2, dniSocio);
+                ps.setString(3, nombreSocio);
+                ps.setString(4, apellidosSocio);
+                ps.setString(5, tlfno);
+                ps.setString(6, correo);
+                ps.executeUpdate();
+
+
+               if (ok) showInfo("Socio insertado correctamente");
                 else showError("Socio no inertado correctamente");
-            } catch (Exception ex) {
-                showError(ex.getMessage());
+            } catch (SQLException sqlException) {
+                showError("Error en la inserción de socio" + sqlException.getMessage());
             }
         });
     }

@@ -23,13 +23,9 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        try {
-       //LLamo al método de la lógica para cargar los datos del fichero
-            club = new ClubDeportivo();
-            showInfo("Conectado");
-        } catch (SQLException e) {
-            showError("Error de conexión" + e.getMessage());
-        }
+        //LLamo al método de la lógica para cargar los datos del fichero
+        club = new ClubDeportivo();
+        showInfo("Conectado");
 
         root = new BorderPane();
         root.setTop(buildMenuBar());
@@ -116,6 +112,8 @@ public class MainApp extends Application {
     public void stop() throws Exception {
         try {
          //   LLamo al método del modelo para guardar los datos
+
+
         } catch (Exception ignored) {}
         super.stop();
     }
