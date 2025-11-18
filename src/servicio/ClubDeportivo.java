@@ -134,4 +134,14 @@ public class ClubDeportivo {
         }
         return reservas;
     }
+
+
+    public void CambiarDisponibilidad(String idPista, Boolean disponible) throws SQLException {
+        String stmt = "UPDATE pistas SET disponible = ? WHERE id_pista = ?";
+        PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement(stmt);
+            pstmt.setInt(1, disponible ? 1 : 0);
+            pstmt.setString(2, idPista);
+            pstmt.executeUpdate();
+    }
 }
