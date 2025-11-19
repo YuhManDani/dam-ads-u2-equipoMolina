@@ -144,4 +144,12 @@ public class ClubDeportivo {
             pstmt.setString(2, idPista);
             pstmt.executeUpdate();
     }
+  
+    public void cancelarReserva(Reserva r) throws SQLException {
+        String stmt = "Delete FROM reservas where id_reserva = ?";
+        PreparedStatement ps = null;
+        ps = con.prepareStatement(stmt);
+        ps.setString(1, r.getIdReserva());
+        ps.executeUpdate();
+    }
 }
