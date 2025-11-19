@@ -27,10 +27,23 @@ public class PistaFormView extends GridPane {
 
         crear.setOnAction(e -> {
             try {
-             //   club.altaPista(new Pista(id.getText(), deporte.getText(), descripcion.getText(), disponible.isSelected()));
+                Pista nueva = new Pista(
+                        id.getText(),
+                        deporte.getText(),
+                        descripcion.getText(),
+                        disponible.isSelected()
+                );
+
+                club.altaPista(nueva);
+                showInfo("Pista creada correctamente.");
 
             } catch (Exception ex) {
-                showError(ex.getMessage());
+                if (!deporte.getText().equals("fútbol sala") || !deporte.getText().equals("pádel") || !descripcion.getText().equals("tenis")) {
+                    showError("Solo hay pistas de fútbol sala, tenis, o pádel");
+                }
+                else {
+                    showError(ex.getMessage());
+                }
             }
         });
     }
@@ -45,4 +58,5 @@ public class PistaFormView extends GridPane {
         a.setHeaderText(null);
         a.showAndWait();
     }
+
 }
