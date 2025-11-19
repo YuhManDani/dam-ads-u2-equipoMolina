@@ -70,4 +70,7 @@ public class BajaSocioView extends GridPane {
         a.setHeaderText(null);
         a.showAndWait();
     }
+
+
+
 }
