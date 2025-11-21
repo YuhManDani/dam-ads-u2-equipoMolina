@@ -173,4 +173,21 @@ public class ClubDeportivo {
         procedure.setInt(6, r.getDuracionMin());
         procedure.execute();
     }
+
+    public void CambiarDisponibilidad(String idPista, Boolean disponible) throws SQLException {
+        String stmt = "UPDATE pistas SET disponible = ? WHERE id_pista = ?";
+        PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement(stmt);
+            pstmt.setInt(1, disponible ? 1 : 0);
+            pstmt.setString(2, idPista);
+            pstmt.executeUpdate();
+    }
+  
+    public void cancelarReserva(Reserva r) throws SQLException {
+        String stmt = "Delete FROM reservas where id_reserva = ?";
+        PreparedStatement ps = null;
+        ps = con.prepareStatement(stmt);
+        ps.setString(1, r.getIdReserva());
+        ps.executeUpdate();
+    }
 }
