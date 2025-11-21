@@ -153,4 +153,59 @@ public class ClubDeportivo {
         }
     }
 
+    public void darDeBajaSocio(Socio socioSeleccionado) throws SQLException {
+
+        String socioId = socioSeleccionado.getIdSocio();
+
+        String stmt = "DELETE FROM socios WHERE id_socio = ?";
+        PreparedStatement ps = null;
+        ps = con.prepareStatement(stmt);
+        ps.setString(1, socioId);
+        ps.executeUpdate();
+    }
+
+    public void darDeAltaSocio(Socio s) throws SQLException{
+        String stmt = "INSERT INTO socios (id_socio, dni, nombre, apellidos, telefono, email) VALUES (?, ?, ?, ?, ?, ?)";
+        PreparedStatement ps = null;
+
+        ps = con.prepareStatement(stmt);
+        ps.setString(1, s.getIdSocio());
+        ps.setString(2, s.getDni());
+        ps.setString(3, s.getNombre());
+        ps.setString(4, s.getApellidos());
+        ps.setString(5, s.getTelefono());
+        ps.setString(6, s.getEmail());
+        ps.executeUpdate();
+    }
+
+    public void crearReserva(Reserva r) throws SQLException {
+        String stmt = "call sp_crear_reserva(?, ?, ?, ?, ?, ?)";
+        CallableStatement procedure = null;
+
+        procedure = con.prepareCall(stmt);
+        procedure.setString(1, r.getIdReserva());
+        procedure.setString(2, r.getIdSocio());
+        procedure.setString(3, r.getIdPista());
+        procedure.setDate(4, java.sql.Date.valueOf(r.getFecha()));
+        procedure.setTime(5, java.sql.Time.valueOf(r.getHoraInicio()));
+        procedure.setInt(6, r.getDuracionMin());
+        procedure.execute();
+    }
+
+    public void CambiarDisponibilidad(String idPista, Boolean disponible) throws SQLException {
+        String stmt = "UPDATE pistas SET disponible = ? WHERE id_pista = ?";
+        PreparedStatement pstmt = null;
+            pstmt = con.prepareStatement(stmt);
+            pstmt.setInt(1, disponible ? 1 : 0);
+            pstmt.setString(2, idPista);
+            pstmt.executeUpdate();
+    }
+  
+    public void cancelarReserva(Reserva r) throws SQLException {
+        String stmt = "Delete FROM reservas where id_reserva = ?";
+        PreparedStatement ps = null;
+        ps = con.prepareStatement(stmt);
+        ps.setString(1, r.getIdReserva());
+        ps.executeUpdate();
+    }
 }

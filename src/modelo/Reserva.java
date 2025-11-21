@@ -73,4 +73,8 @@ public class Reserva {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
+
+    public String toString() {
+        return String.valueOf(this.idReserva);
+    }
 }

@@ -1,11 +1,10 @@
 <component name="libraryTable">
   <library name="lib">
     <CLASSES>
-      <root url="file://$USER_HOME$/Desktop/javafx-sdk-24.0.2/lib" />
-      <root url="jar://$USER_HOME$/Desktop/mysql-connector-j-9.4.0/mysql-connector-j-9.4.0.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../javafx-sdk-24.0.2/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
-    <jarDirectory url="file://$USER_HOME$/Desktop/javafx-sdk-24.0.2/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../../javafx-sdk-24.0.2/lib" recursive="false" />
   </library>
 </component>

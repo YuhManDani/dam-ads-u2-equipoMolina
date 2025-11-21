@@ -40,19 +40,12 @@ public class BajaSocioView extends GridPane {
 
         baja.setOnAction(e -> {
         //LLamar al método del modelo para dar de baja  a un socio.
-
             Socio socioSeleccionado = id.getValue();
-            if (socioSeleccionado == null) {
-            showError("No has seleccionado un socio");
-            }
-            String socioId = socioSeleccionado.getIdSocio();
-
-            String stmt = "DELETE FROM socios WHERE id_socio = ?";
-            PreparedStatement ps = null;
             try {
-                ps = con.prepareStatement(stmt);
-                ps.setString(1, socioId);
-                ps.executeUpdate();
+                if (socioSeleccionado == null) {
+                    showError("Asegurese de haber seleccionado un socio");
+                }
+                club.darDeBajaSocio(socioSeleccionado);
                 showInfo("Socio eliminado correctamente");
             } catch (SQLException ex) {
                 showError("Error en la elimnación de socio" + ex.getMessage());
@@ -70,4 +63,7 @@ public class BajaSocioView extends GridPane {
         a.setHeaderText(null);
         a.showAndWait();
     }
+
+
+
 }
