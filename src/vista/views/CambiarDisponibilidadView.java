@@ -6,9 +6,13 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.function.Consumer;
 
 public class CambiarDisponibilidadView extends GridPane {
+
     public CambiarDisponibilidadView(ClubDeportivo club) {
         setPadding(new Insets(12));
         setHgap(8); setVgap(8);
@@ -22,12 +26,7 @@ public class CambiarDisponibilidadView extends GridPane {
         add(cambiar, 1, 2);
 
         cambiar.setOnAction(e -> {
-            try {
-          //     club.cambiarDisponibilidadPista(id.getText(), disponible.isSelected());
 
-            } catch (Exception ex) {
-                showError(ex.getMessage());
-            }
         });
     }
 

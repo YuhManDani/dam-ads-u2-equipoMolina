@@ -43,30 +43,15 @@ public class SocioFormView extends GridPane {
         add(crear, 1, 6);
 
         crear.setOnAction(e -> {
-            try {
-                boolean ok=true;
+            try{
                 String idSocio = id.getText();
                 String dniSocio = dni.getText();
                 String nombreSocio = nombre.getText();
                 String apellidosSocio = apellidos.getText();
                 String tlfno = tel.getText();
                 String correo = email.getText();
-
-                String stmt = "INSERT INTO socios (id_socio, dni, nombre, apellidos, telefono, email) VALUES (?, ?, ?, ?, ?, ?)";
-                PreparedStatement ps = null;
-
-                ps = con.prepareStatement(stmt);
-                ps.setString(1, idSocio);
-                ps.setString(2, dniSocio);
-                ps.setString(3, nombreSocio);
-                ps.setString(4, apellidosSocio);
-                ps.setString(5, tlfno);
-                ps.setString(6, correo);
-                ps.executeUpdate();
-
-
-               if (ok) showInfo("Socio insertado correctamente");
-                else showError("Socio no inertado correctamente");
+                Socio socio = new Socio(idSocio,dniSocio,nombreSocio,apellidosSocio,tlfno,correo);
+                club.darDeAltaSocio(socio);
             } catch (SQLException sqlException) {
                 showError("Error en la inserción de socio" + sqlException.getMessage());
             }
@@ -83,4 +68,5 @@ public class SocioFormView extends GridPane {
         a.setHeaderText(null);
         a.showAndWait();
     }
+
 }

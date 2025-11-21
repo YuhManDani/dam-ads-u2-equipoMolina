@@ -6,6 +6,8 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+import java.sql.CallableStatement;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -24,6 +26,13 @@ public class ReservaFormView extends GridPane {
         TextField precio = new TextField("10.0");
         Button crear = new Button("Reservar");
 
+        for (Socio socio : club.getSocios()) {
+            idSocio.getItems().add(socio);
+        }
+
+        for (Pista pista : club.getPistas()) {
+            idPista.getItems().add(pista);
+        }
         addRow(0, new Label("idReserva*"), id);
         addRow(1, new Label("Socio*"), idSocio);
         addRow(2, new Label("Pista*"), idPista);
@@ -35,13 +44,16 @@ public class ReservaFormView extends GridPane {
 
         crear.setOnAction(e -> {
             try {
+                DatePicker datoFecha = new DatePicker(LocalDate.now());
                 LocalTime t = LocalTime.parse(hora.getText());
-
-              Reserva r = new Reserva(id.getText(), idSocio.getValue().getIdSocio(), idPista.getValue().getIdPista(),
-                      fecha.getValue(), t, duracion.getValue(), Double.parseDouble(precio.getText()));
-           //     boolean ok = club.crearReserva(r);
+                String idReserva = id.getText();
+                String socio = idSocio.getValue().getIdSocio();
+                String pista = idPista.getValue().getIdPista();
+                Reserva r = new Reserva(id.getText(), idSocio.getValue().getIdSocio(), idPista.getValue().getIdPista(), fecha.getValue(), t, duracion.getValue(), Double.parseDouble(precio.getText()));
+                club.crearReserva(r);
+                showInfo("Reserva creada correctamente");
             } catch (Exception ex) {
-                showError(ex.getMessage());
+                showError("Error en la creación de la reserva: " + ex.getMessage());
             }
         });
     }
