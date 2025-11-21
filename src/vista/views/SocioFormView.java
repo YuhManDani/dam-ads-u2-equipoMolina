@@ -52,6 +52,7 @@ public class SocioFormView extends GridPane {
                 String correo = email.getText();
                 Socio socio = new Socio(idSocio,dniSocio,nombreSocio,apellidosSocio,tlfno,correo);
                 club.darDeAltaSocio(socio);
+                showInfo("Socio registrado correctamente");
             } catch (SQLException sqlException) {
                 showError("Error en la inserción de socio" + sqlException.getMessage());
             }
