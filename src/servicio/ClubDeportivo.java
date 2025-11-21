@@ -135,6 +135,24 @@ public class ClubDeportivo {
         return reservas;
     }
 
+    public void altaPista(Pista pista) throws SQLException {
+        String stmt = "INSERT INTO pistas (id_pista, deporte, descripcion, disponible) VALUES (?, ?, ?, ?)";
+        PreparedStatement pstmt = null;
+
+        try {
+            pstmt = con.prepareStatement(stmt);
+            pstmt.setString(1, pista.getIdPista());
+            pstmt.setString(2, pista.getDeporte());
+            pstmt.setString(3, pista.getDescripcion());
+            pstmt.setInt(4, pista.isDisponible() ? 1 : 0);
+
+            pstmt.executeUpdate();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void darDeBajaSocio(Socio socioSeleccionado) throws SQLException {
 
         String socioId = socioSeleccionado.getIdSocio();
