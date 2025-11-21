@@ -44,6 +44,7 @@ public class CambiarDisponibilidadView extends GridPane {
         add(cambiar, 1, 2);
 
         cambiar.setOnAction(e -> {
+
             Pista pistaSeleccionada = id.getValue();
             if (pistaSeleccionada == null) {
                 showError("No has seleccionado una pista");
